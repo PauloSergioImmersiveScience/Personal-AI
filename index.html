@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Câmera Fullscreen com Troca</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Vídeo em fullscreen -->
+    <video id="camera" autoplay playsinline muted></video>
+
+    <!-- Etiqueta mostrando qual câmera está ativa -->
+    <div id="cameraLabel">📷 Câmera: Frontal</div>
+
+    <!-- Botão para trocar a câmera -->
+    <div class="controls">
+        <button id="toggleCamera">🔄 Trocar câmera</button>
+    </div>
+
+    <script>
+        let currentFacingMode = "user";  // padrão: frontal
+        let currentStream = null;
+
+        const label = document.getElementById("cameraLabel");
+
+        async function startCamera(facingMode = "user") {
+            const video = document.getElementById('camera');
+
+            // Para o stream atual antes de iniciar o novo
+            if (currentStream) {
+                currentStream.getTracks().forEach(track => track.stop());
+                currentStream = null;
+            }
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: facingMode },
+                    audio: false
+                });
+
+                currentStream = stream;
+                video.srcObject = stream;
+                currentFacingMode = facingMode;
+
+                // Atualizar o texto da câmera ativa
+                label.textContent =
+                    facingMode === "user"
+                    ? "📷 Câmera: Frontal"
+                    : "📷 Câmera: Traseira";
+
+            } catch (err) {
+                console.error("Erro ao acessar a câmera:", err);
+                alert("Não foi possível acessar a câmera: " + err.message);
+            }
+        }
+
+        function toggleCamera() {
+            const newMode = currentFacingMode === "user" ? "environment" : "user";
+            startCamera(newMode);
+        }
+
+        document.getElementById('toggleCamera').addEventListener('click', toggleCamera);
+
+        // Inicia com a câmera FRONTAL
+        startCamera("user");
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,61 @@
+/* Tela cheia */
+html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: black;
+}
+
+/* Vídeo ocupando a tela toda */
+video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: black;
+}
+
+/* Texto indicando qual câmera está ativa */
+#cameraLabel {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 18px;
+    border-radius: 8px;
+    z-index: 20;
+    backdrop-filter: blur(4px);
+}
+
+/* Área do botão */
+.controls {
+    position: absolute;
+    bottom: 25px;
+    width: 100%;
+    text-align: center;
+    z-index: 30;
+}
+
+/* Botão estilizado */
+.controls button {
+    padding: 12px 22px;
+    font-size: 18px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.9);
+    color: #111;
+    font-weight: bold;
+    backdrop-filter: blur(6px);
+}
+
+/* Efeito ao clicar */
+.controls button:active {
+    transform: scale(0.95);
+}
