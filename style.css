@@ -59,3 +59,14 @@ video {
 .controls button:active {
     transform: scale(0.95);
 }
+
+/* Canvas de overlay para desenhar as articulações */
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;    /* ocupar mesma área visual do vídeo */
+    height: 100%;
+    pointer-events: none;  /* não bloquear cliques no botão */
+    z-index: 10;           /* acima do vídeo, abaixo dos textos/botões */
+}
